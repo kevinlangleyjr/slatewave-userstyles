@@ -1,7 +1,7 @@
 {
   "name": "Slatewave for <Site>",
   "namespace": "getslatewave.com/<site>",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Slatewave palette for <Site>.",
   "author": "Kevin Langley Jr.",
   "homepageURL": "https://getslatewave.com",

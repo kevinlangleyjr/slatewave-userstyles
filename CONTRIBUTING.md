@@ -18,7 +18,7 @@ Thanks for wanting to extend Slatewave to another corner of the web. The bar is 
 
    - `name` — display name, e.g. `Slatewave for GitHub`
    - `namespace` — stable identifier, e.g. `getslatewave.com/github`
-   - `version` — start at `0.1.0`, bump per release
+   - `version` — start at `0.0.1`, bump per release
    - `description` — one short sentence
    - `domains` — array of hostnames the style applies to (e.g. `["github.com", "gist.github.com"]`)
    - `supportURL` — issues URL for this repo
