@@ -1,0 +1,49 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify the committed artifacts match what we just built
+        # If a tag is pushed without a matching `npm run build` commit, the
+        # release would ship stale CSS. Catch that here.
+        run: npm run build:check
+
+      - name: Stage release artifacts
+        # Rename each per-site .user.css with a `slatewave-<site>` prefix so
+        # multiple styles don't collide as `slatewave.user.css` on the release.
+        run: |
+          set -euo pipefail
+          mkdir -p release-artifacts
+          cp import.json release-artifacts/
+          for f in styles/*/slatewave.user.css; do
+            site=$(basename "$(dirname "$f")")
+            cp "$f" "release-artifacts/slatewave-${site}.user.css"
+          done
+          ls -la release-artifacts/
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-artifacts/*
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          # Tags shaped `1.2.3-rc1` / `1.2.3-beta` are marked as prerelease.
+          prerelease: ${{ contains(github.ref_name, '-') }}

@@ -36,13 +36,24 @@ More on the way — see [open issues](https://github.com/kevinlangleyjr/slatewav
 
 ## Installation
 
+### Single style
+
 1. Install the [Stylus](https://github.com/openstyles/stylus) browser extension ([Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) · [Firefox](https://addons.mozilla.org/firefox/addon/styl-us/) · [Edge](https://microsoftedge.microsoft.com/addons/detail/stylus/fjnbnpbmkenffdnngjfgmeleoegfcffe)).
 2. Click the install link for the site you want above (or click the `slatewave.user.css` file in this repo and use the **Raw** button).
 3. Stylus will prompt you to install. Confirm.
 4. Reload the site — Slatewave should be applied.
 
+### All styles at once
+
+Slatewave ships an [`import.json`](import.json) — a Stylus-compatible backup that installs every userstyle in this repo in one shot, with `updateUrl` wired up so they auto-update from `main`.
+
+1. Download [`import.json`](https://raw.githubusercontent.com/kevinlangleyjr/slatewave-userstyles/main/import.json) (or grab it from the [latest release](https://github.com/kevinlangleyjr/slatewave-userstyles/releases/latest)).
+2. Open Stylus's **Manage** page → **Backup** section → **Import**.
+3. Select the downloaded `import.json`. Stylus installs all Slatewave userstyles at once.
+4. Reload the relevant sites.
+
 > [!NOTE]
-> The CSS files in `styles/<site>/slatewave.user.css` are committed build artifacts. You can install them directly without cloning or running the build.
+> The `slatewave.user.css` files under `styles/<site>/` and the root `import.json` are committed build artifacts. You can install them directly without cloning or running the build.
 
 ---
 
@@ -80,11 +91,17 @@ slatewave-userstyles/
 ├── template/                   # copy this to start a new site
 ├── scripts/
 │   └── build.mjs               # wraps style.css with UserCSS metadata
+│                               # and aggregates import.json
+├── import.json                 # Stylus backup — installs every style at once
 ├── package.json
 └── LICENSE                     # WTFPL
 ```
 
-Each style is authored as plain CSS in `style.css`. The build script reads `meta.json` and emits `slatewave.user.css` with a Stylus-compatible UserCSS metadata header.
+Each style is authored as plain CSS in `style.css`. The build script reads `meta.json` and emits `slatewave.user.css` with a Stylus-compatible UserCSS metadata header. After all per-site builds run, the script re-aggregates `import.json` so its embedded sources stay in sync with the committed `.user.css` files.
+
+## Releases
+
+Pushing a semver tag like `0.0.1` triggers `.github/workflows/release.yml`, which builds, verifies the committed artifacts match source, and creates a GitHub release with each `slatewave-<site>.user.css` and `import.json` attached. Tags with a hyphen (e.g. `0.1.0-rc1`) are published as prereleases.
 
 ---
 
