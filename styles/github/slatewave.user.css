@@ -1,0 +1,403 @@
+/* ==UserStyle==
+ @name           Slatewave for GitHub
+ @namespace      getslatewave.com/github
+ @version        0.1.0
+ @description    Slate base, teal accents — Slatewave palette applied to GitHub.
+ @author         Kevin Langley Jr.
+ @homepageURL    https://getslatewave.com
+ @supportURL     https://github.com/kevinlangleyjr/slatewave-userstyles/issues
+ @license        WTFPL
+==/UserStyle== */
+
+@-moz-document domain("github.com"), domain("gist.github.com") {
+  /* =============================================================
+   * Slatewave for GitHub
+   * Slate base, teal accents. Overrides GitHub's Primer design
+   * tokens so the theme follows GitHub's UI as it evolves.
+   *
+   * Approach: redefine the color custom properties at the html
+   * root for any color mode the user has set. Both the modern
+   * `--bgColor-*` / `--fgColor-*` tokens and the legacy
+   * `--color-*` tokens are covered so old and new surfaces match.
+   * ============================================================= */
+  
+  /* Force Slatewave regardless of the user's GitHub theme setting:
+   * targeting all four [data-color-mode][data-*-theme] permutations
+   * means "auto", "dark", and "light" all resolve to Slatewave. */
+  [data-color-mode="auto"][data-light-theme],
+  [data-color-mode="auto"][data-dark-theme],
+  [data-color-mode="dark"][data-dark-theme],
+  [data-color-mode="light"][data-light-theme] {
+    /* ---------- Slatewave palette (private, used below) ---------- */
+    --slatewave-bg-0: #282c34;       /* page canvas */
+    --slatewave-bg-1: #21252b;       /* cards, headers, sidebar */
+    --slatewave-bg-2: #1e293b;       /* code blocks, modals, inset */
+    --slatewave-bg-3: #0f172a;       /* deepest surface */
+  
+    --slatewave-border: #334155;
+    --slatewave-border-hover: #475569;
+    --slatewave-border-muted: #1e293b;
+  
+    --slatewave-text: #e2e8f0;
+    --slatewave-text-muted: #cbd5e1;
+    --slatewave-text-faint: #64748b;
+    --slatewave-text-on-emphasis: #0f172a;
+  
+    --slatewave-teal: #5eead4;
+    --slatewave-teal-hover: #99f6e4;
+    --slatewave-teal-deep: #0f766e;
+    --slatewave-teal-faint: rgba(94, 234, 212, 0.15);
+    --slatewave-teal-subtle: rgba(94, 234, 212, 0.08);
+  
+    --slatewave-sky: #7dd3fc;
+    --slatewave-sky-strong: #38bdf8;
+    --slatewave-purple: #b388ff;
+    --slatewave-purple-deep: #5b21b6;
+    --slatewave-amber: #fbbf24;
+    --slatewave-amber-deep: #b45309;
+    --slatewave-amber-faint: rgba(251, 191, 36, 0.15);
+    --slatewave-rose: #fb7185;
+    --slatewave-rose-deep: #7f1d1d;
+    --slatewave-rose-faint: rgba(251, 113, 133, 0.15);
+  
+    /* ---------- Modern Primer tokens (bgColor / fgColor) ---------- */
+    --bgColor-default: var(--slatewave-bg-0);
+    --bgColor-muted: var(--slatewave-bg-1);
+    --bgColor-inset: var(--slatewave-bg-2);
+    --bgColor-emphasis: var(--slatewave-bg-3);
+    --bgColor-disabled: var(--slatewave-bg-2);
+  
+    --bgColor-neutral-muted: rgba(148, 163, 184, 0.12);
+    --bgColor-neutral-emphasis: var(--slatewave-text-faint);
+    --bgColor-neutral-emphasisPlus: var(--slatewave-text-muted);
+  
+    --bgColor-accent-muted: var(--slatewave-teal-faint);
+    --bgColor-accent-emphasis: var(--slatewave-teal-deep);
+    --bgColor-success-muted: var(--slatewave-teal-subtle);
+    --bgColor-success-emphasis: var(--slatewave-teal-deep);
+    --bgColor-attention-muted: var(--slatewave-amber-faint);
+    --bgColor-attention-emphasis: var(--slatewave-amber-deep);
+    --bgColor-severe-muted: var(--slatewave-amber-faint);
+    --bgColor-severe-emphasis: var(--slatewave-amber-deep);
+    --bgColor-danger-muted: var(--slatewave-rose-faint);
+    --bgColor-danger-emphasis: var(--slatewave-rose-deep);
+    --bgColor-open-muted: var(--slatewave-teal-faint);
+    --bgColor-open-emphasis: var(--slatewave-teal-deep);
+    --bgColor-closed-muted: var(--slatewave-rose-faint);
+    --bgColor-closed-emphasis: var(--slatewave-rose-deep);
+    --bgColor-done-muted: rgba(179, 136, 255, 0.15);
+    --bgColor-done-emphasis: var(--slatewave-purple-deep);
+    --bgColor-upsell-muted: rgba(179, 136, 255, 0.15);
+    --bgColor-upsell-emphasis: var(--slatewave-purple-deep);
+  
+    --fgColor-default: var(--slatewave-text);
+    --fgColor-muted: var(--slatewave-text-muted);
+    --fgColor-onEmphasis: var(--slatewave-text-on-emphasis);
+    --fgColor-onInverse: var(--slatewave-text-on-emphasis);
+    --fgColor-disabled: var(--slatewave-text-faint);
+    --fgColor-link: var(--slatewave-teal);
+    --fgColor-accent: var(--slatewave-teal);
+    --fgColor-success: var(--slatewave-teal);
+    --fgColor-attention: var(--slatewave-amber);
+    --fgColor-severe: var(--slatewave-amber);
+    --fgColor-danger: var(--slatewave-rose);
+    --fgColor-open: var(--slatewave-teal);
+    --fgColor-closed: var(--slatewave-rose);
+    --fgColor-done: var(--slatewave-purple);
+    --fgColor-upsell: var(--slatewave-purple);
+  
+    --borderColor-default: var(--slatewave-border);
+    --borderColor-muted: var(--slatewave-border-muted);
+    --borderColor-emphasis: var(--slatewave-border-hover);
+    --borderColor-neutral-emphasis: var(--slatewave-text-faint);
+    --borderColor-accent-muted: var(--slatewave-teal-faint);
+    --borderColor-accent-emphasis: var(--slatewave-teal);
+    --borderColor-success-muted: var(--slatewave-teal-faint);
+    --borderColor-success-emphasis: var(--slatewave-teal);
+    --borderColor-attention-muted: var(--slatewave-amber-faint);
+    --borderColor-attention-emphasis: var(--slatewave-amber);
+    --borderColor-severe-emphasis: var(--slatewave-amber);
+    --borderColor-danger-muted: var(--slatewave-rose-faint);
+    --borderColor-danger-emphasis: var(--slatewave-rose);
+    --borderColor-open-emphasis: var(--slatewave-teal);
+    --borderColor-closed-emphasis: var(--slatewave-rose);
+    --borderColor-done-emphasis: var(--slatewave-purple);
+  
+    /* ---------- Buttons (modern Primer) ---------- */
+    --button-default-bgColor-rest: var(--slatewave-bg-1);
+    --button-default-bgColor-hover: var(--slatewave-border);
+    --button-default-bgColor-active: var(--slatewave-border-hover);
+    --button-default-fgColor-rest: var(--slatewave-text);
+    --button-default-borderColor-rest: var(--slatewave-border);
+    --button-default-borderColor-hover: var(--slatewave-border-hover);
+  
+    --button-primary-bgColor-rest: var(--slatewave-teal-deep);
+    --button-primary-bgColor-hover: var(--slatewave-teal);
+    --button-primary-bgColor-active: var(--slatewave-teal-hover);
+    --button-primary-fgColor-rest: var(--slatewave-text-on-emphasis);
+    --button-primary-borderColor-rest: var(--slatewave-teal-deep);
+    --button-primary-borderColor-hover: var(--slatewave-teal);
+  
+    --button-danger-bgColor-rest: var(--slatewave-bg-1);
+    --button-danger-bgColor-hover: var(--slatewave-rose-deep);
+    --button-danger-fgColor-rest: var(--slatewave-rose);
+    --button-danger-fgColor-hover: var(--slatewave-text);
+  
+    --button-invisible-bgColor-rest: transparent;
+    --button-invisible-bgColor-hover: var(--slatewave-teal-faint);
+    --button-invisible-fgColor-rest: var(--slatewave-text);
+    --button-invisible-fgColor-hover: var(--slatewave-teal-hover);
+  
+    --button-counter-bgColor-rest: var(--slatewave-bg-2);
+  
+    /* ---------- Controls (selectMenu, overlays) ---------- */
+    --overlay-bgColor: var(--slatewave-bg-1);
+    --overlay-borderColor: var(--slatewave-border);
+    --overlay-backdrop-bgColor: rgba(15, 23, 42, 0.6);
+  
+    --selectMenu-bgColor-active: var(--slatewave-teal-faint);
+    --controlKnob-bgColor-rest: var(--slatewave-text-muted);
+    --control-bgColor-rest: var(--slatewave-bg-1);
+    --control-bgColor-hover: var(--slatewave-bg-2);
+    --control-bgColor-active: var(--slatewave-bg-3);
+    --control-borderColor-rest: var(--slatewave-border);
+    --control-borderColor-emphasis: var(--slatewave-teal);
+    --control-fgColor-rest: var(--slatewave-text);
+    --control-fgColor-placeholder: var(--slatewave-text-faint);
+  
+    /* ---------- Avatars / counters ---------- */
+    --avatar-bgColor: var(--slatewave-bg-1);
+    --avatar-borderColor: var(--slatewave-border-muted);
+    --counter-borderColor: transparent;
+  
+    /* ---------- Diffs ---------- */
+    --diffBlob-additionLine-bgColor: rgba(94, 234, 212, 0.10);
+    --diffBlob-additionWord-bgColor: rgba(94, 234, 212, 0.22);
+    --diffBlob-additionNum-bgColor: rgba(94, 234, 212, 0.15);
+    --diffBlob-additionFg: var(--slatewave-text);
+    --diffBlob-deletionLine-bgColor: rgba(251, 113, 133, 0.10);
+    --diffBlob-deletionWord-bgColor: rgba(251, 113, 133, 0.22);
+    --diffBlob-deletionNum-bgColor: rgba(251, 113, 133, 0.15);
+    --diffBlob-deletionFg: var(--slatewave-text);
+    --diffBlob-hunkNum-bgColor-rest: var(--slatewave-bg-2);
+    --diffBlob-expander-iconFgColor-rest: var(--slatewave-text-muted);
+  
+    /* ---------- Header ---------- */
+    --header-bgColor: var(--slatewave-bg-3);
+    --header-fgColor-default: var(--slatewave-text);
+    --header-fgColor-logo: var(--slatewave-text);
+    --header-borderColor-divider: var(--slatewave-border);
+  
+    /* ---------- Legacy Primer tokens (still used in many surfaces) ---------- */
+    --color-canvas-default: var(--slatewave-bg-0);
+    --color-canvas-overlay: var(--slatewave-bg-1);
+    --color-canvas-inset: var(--slatewave-bg-2);
+    --color-canvas-subtle: var(--slatewave-bg-1);
+  
+    --color-fg-default: var(--slatewave-text);
+    --color-fg-muted: var(--slatewave-text-muted);
+    --color-fg-subtle: var(--slatewave-text-faint);
+    --color-fg-on-emphasis: var(--slatewave-text-on-emphasis);
+  
+    --color-accent-fg: var(--slatewave-teal);
+    --color-accent-emphasis: var(--slatewave-teal-deep);
+    --color-accent-muted: var(--slatewave-teal-faint);
+    --color-accent-subtle: var(--slatewave-teal-subtle);
+  
+    --color-success-fg: var(--slatewave-teal);
+    --color-success-emphasis: var(--slatewave-teal-deep);
+    --color-success-muted: var(--slatewave-teal-faint);
+    --color-success-subtle: var(--slatewave-teal-subtle);
+  
+    --color-attention-fg: var(--slatewave-amber);
+    --color-attention-emphasis: var(--slatewave-amber-deep);
+    --color-attention-muted: var(--slatewave-amber-faint);
+    --color-attention-subtle: var(--slatewave-amber-faint);
+  
+    --color-severe-fg: var(--slatewave-amber);
+    --color-severe-emphasis: var(--slatewave-amber-deep);
+    --color-severe-muted: var(--slatewave-amber-faint);
+  
+    --color-danger-fg: var(--slatewave-rose);
+    --color-danger-emphasis: var(--slatewave-rose-deep);
+    --color-danger-muted: var(--slatewave-rose-faint);
+    --color-danger-subtle: var(--slatewave-rose-faint);
+  
+    --color-open-fg: var(--slatewave-teal);
+    --color-open-emphasis: var(--slatewave-teal-deep);
+    --color-open-muted: var(--slatewave-teal-faint);
+    --color-open-subtle: var(--slatewave-teal-subtle);
+  
+    --color-closed-fg: var(--slatewave-rose);
+    --color-closed-emphasis: var(--slatewave-rose-deep);
+    --color-closed-muted: var(--slatewave-rose-faint);
+  
+    --color-done-fg: var(--slatewave-purple);
+    --color-done-emphasis: var(--slatewave-purple-deep);
+    --color-done-muted: rgba(179, 136, 255, 0.15);
+  
+    --color-sponsors-fg: var(--slatewave-purple);
+    --color-sponsors-emphasis: var(--slatewave-purple-deep);
+    --color-sponsors-muted: rgba(179, 136, 255, 0.15);
+  
+    --color-border-default: var(--slatewave-border);
+    --color-border-muted: var(--slatewave-border-muted);
+    --color-border-subtle: var(--slatewave-border-muted);
+  
+    /* Buttons (legacy) */
+    --color-btn-text: var(--slatewave-text);
+    --color-btn-bg: var(--slatewave-bg-1);
+    --color-btn-border: var(--slatewave-border);
+    --color-btn-hover-bg: var(--slatewave-border);
+    --color-btn-hover-border: var(--slatewave-border-hover);
+    --color-btn-active-bg: var(--slatewave-border-hover);
+    --color-btn-selected-bg: var(--slatewave-bg-2);
+    --color-btn-counter-bg: var(--slatewave-bg-2);
+  
+    --color-btn-primary-text: var(--slatewave-text-on-emphasis);
+    --color-btn-primary-bg: var(--slatewave-teal-deep);
+    --color-btn-primary-border: var(--slatewave-teal-deep);
+    --color-btn-primary-hover-bg: var(--slatewave-teal);
+    --color-btn-primary-hover-border: var(--slatewave-teal);
+    --color-btn-primary-selected-bg: var(--slatewave-teal-hover);
+    --color-btn-primary-disabled-text: rgba(15, 23, 42, 0.6);
+    --color-btn-primary-disabled-bg: var(--slatewave-teal-deep);
+  
+    --color-btn-danger-text: var(--slatewave-rose);
+    --color-btn-danger-hover-text: var(--slatewave-text);
+    --color-btn-danger-hover-bg: var(--slatewave-rose-deep);
+    --color-btn-danger-hover-border: var(--slatewave-rose);
+  
+    /* Action list */
+    --color-action-list-item-default-hover-bg: var(--slatewave-teal-subtle);
+    --color-action-list-item-default-active-bg: var(--slatewave-teal-faint);
+    --color-action-list-item-default-selected-bg: var(--slatewave-teal-faint);
+  
+    /* Side nav (Settings pages, file browser sidebar) */
+    --color-side-nav-bg: var(--slatewave-bg-1);
+    --color-side-nav-selected-bg: var(--slatewave-teal-faint);
+  
+    /* Header (legacy) */
+    --color-header-bg: var(--slatewave-bg-3);
+    --color-header-text: var(--slatewave-text);
+    --color-header-logo: var(--slatewave-text);
+  
+    /* Notifications */
+    --color-notifications-button-text: var(--slatewave-text);
+    --color-notifications-button-hover-text: var(--slatewave-teal);
+  
+    /* Diff (legacy) */
+    --color-diff-blob-addition-num-text: var(--slatewave-text);
+    --color-diff-blob-addition-num-bg: rgba(94, 234, 212, 0.15);
+    --color-diff-blob-addition-line-bg: rgba(94, 234, 212, 0.10);
+    --color-diff-blob-addition-word-bg: rgba(94, 234, 212, 0.22);
+    --color-diff-blob-deletion-num-text: var(--slatewave-text);
+    --color-diff-blob-deletion-num-bg: rgba(251, 113, 133, 0.15);
+    --color-diff-blob-deletion-line-bg: rgba(251, 113, 133, 0.10);
+    --color-diff-blob-deletion-word-bg: rgba(251, 113, 133, 0.22);
+    --color-diff-blob-hunk-num-bg: var(--slatewave-bg-2);
+    --color-diff-blob-expander-icon: var(--slatewave-text-muted);
+    --color-diffstat-addition-bg: var(--slatewave-teal);
+    --color-diffstat-deletion-bg: var(--slatewave-rose);
+  
+    /* ---------- Syntax highlighting (matches the VSCode Slatewave theme) ---------- */
+    --color-prettylights-syntax-comment: var(--slatewave-text-faint);
+    --color-prettylights-syntax-constant: var(--slatewave-rose);
+    --color-prettylights-syntax-entity: var(--slatewave-sky);
+    --color-prettylights-syntax-storage-modifier-import: var(--slatewave-text);
+    --color-prettylights-syntax-entity-tag: var(--slatewave-teal);
+    --color-prettylights-syntax-keyword: var(--slatewave-sky-strong);
+    --color-prettylights-syntax-string: var(--slatewave-teal);
+    --color-prettylights-syntax-variable: var(--slatewave-text);
+    --color-prettylights-syntax-brackethighlighter-unmatched: var(--slatewave-rose);
+    --color-prettylights-syntax-invalid-illegal-text: var(--slatewave-text);
+    --color-prettylights-syntax-invalid-illegal-bg: var(--slatewave-rose-deep);
+    --color-prettylights-syntax-carriage-return-text: var(--slatewave-text);
+    --color-prettylights-syntax-carriage-return-bg: var(--slatewave-rose-deep);
+    --color-prettylights-syntax-string-regexp: var(--slatewave-purple);
+    --color-prettylights-syntax-markup-list: var(--slatewave-amber);
+    --color-prettylights-syntax-markup-heading: var(--slatewave-teal);
+    --color-prettylights-syntax-markup-italic: var(--slatewave-text-muted);
+    --color-prettylights-syntax-markup-bold: var(--slatewave-text);
+    --color-prettylights-syntax-markup-deleted-text: var(--slatewave-text);
+    --color-prettylights-syntax-markup-deleted-bg: rgba(251, 113, 133, 0.15);
+    --color-prettylights-syntax-markup-inserted-text: var(--slatewave-text);
+    --color-prettylights-syntax-markup-inserted-bg: rgba(94, 234, 212, 0.15);
+    --color-prettylights-syntax-markup-changed-text: var(--slatewave-text);
+    --color-prettylights-syntax-markup-changed-bg: rgba(251, 191, 36, 0.15);
+    --color-prettylights-syntax-markup-ignored-text: var(--slatewave-text-muted);
+    --color-prettylights-syntax-markup-ignored-bg: var(--slatewave-bg-2);
+    --color-prettylights-syntax-meta-diff-range: var(--slatewave-purple);
+    --color-prettylights-syntax-brackethighlighter-angle: var(--slatewave-text-muted);
+    --color-prettylights-syntax-sublimelinter-gutter-mark: var(--slatewave-border);
+    --color-prettylights-syntax-constant-other-reference-link: var(--slatewave-teal);
+    --color-prettylights-syntax-sublime-other: var(--slatewave-text);
+  
+    /* ---------- Code editor (Monaco-style on PR composer, gist) ---------- */
+    --color-codemirror-text: var(--slatewave-text);
+    --color-codemirror-bg: var(--slatewave-bg-0);
+    --color-codemirror-gutters-bg: var(--slatewave-bg-0);
+    --color-codemirror-guttermarker-text: var(--slatewave-text-muted);
+    --color-codemirror-guttermarker-subtle-text: var(--slatewave-text-faint);
+    --color-codemirror-linenumber-text: var(--slatewave-text-faint);
+    --color-codemirror-cursor: var(--slatewave-teal);
+    --color-codemirror-selection-bg: rgba(94, 234, 212, 0.25);
+    --color-codemirror-activeline-bg: rgba(94, 234, 212, 0.06);
+    --color-codemirror-matchingbracket-text: var(--slatewave-teal);
+    --color-codemirror-lines-bg: var(--slatewave-bg-0);
+    --color-codemirror-syntax-comment: var(--slatewave-text-faint);
+    --color-codemirror-syntax-constant: var(--slatewave-rose);
+    --color-codemirror-syntax-entity: var(--slatewave-sky);
+    --color-codemirror-syntax-keyword: var(--slatewave-sky-strong);
+    --color-codemirror-syntax-storage: var(--slatewave-sky-strong);
+    --color-codemirror-syntax-string: var(--slatewave-teal);
+    --color-codemirror-syntax-support: var(--slatewave-teal);
+    --color-codemirror-syntax-variable: var(--slatewave-text);
+  }
+  
+  /* ---------- Targeted rules for surfaces the variables miss ---------- */
+  
+  /* Selection: teal, not the GitHub purple-ish default */
+  ::selection {
+    background: rgba(94, 234, 212, 0.25);
+  }
+  
+  /* Tighten up the global header divider to match the slate palette */
+  .AppHeader,
+  header.Header {
+    border-bottom-color: var(--slatewave-border);
+  }
+  
+  /* Subtle teal underline on hovered links — keeps text-decoration but in palette */
+  a:hover {
+    text-decoration-color: var(--slatewave-teal-hover);
+  }
+  
+  /* Active tab indicator — make it teal everywhere a UnderlineNav is used */
+  .UnderlineNav-item[aria-current],
+  .UnderlineNav-item[aria-selected="true"],
+  .UnderlineNav-item.selected {
+    border-bottom-color: var(--slatewave-teal) !important;
+  }
+  
+  /* Open-issue / open-PR icon on the issue list — the SVG fill ignores some
+   * vars in older list views. Force the teal. */
+  .octicon-issue-opened.color-fg-success,
+  .octicon-git-pull-request.color-fg-success,
+  .octicon-git-pull-request-draft {
+    color: var(--slatewave-teal) !important;
+  }
+  
+  /* Code lines in blob view: keep the active line highlight teal */
+  .blob-code-hunk,
+  .blob-num-hunk {
+    background-color: var(--slatewave-bg-2);
+    color: var(--slatewave-text-muted);
+  }
+  
+  /* Pinned-repo cards in the dashboard — the existing rule lays down a
+   * gradient that washes out on slate. Drop it for a flat slate panel. */
+  .pinned-item-list-item-content {
+    background-image: none;
+  }
+}

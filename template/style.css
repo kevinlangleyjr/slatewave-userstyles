@@ -1,0 +1,33 @@
+/* =============================================================
+ * Slatewave for <Site>
+ *
+ * Author plain CSS here. The build script wraps this file in an
+ * `@-moz-document domain(...)` block sourced from meta.json, so
+ * everything in this file is automatically scoped to your target
+ * domain — no wrapper needed.
+ *
+ * Palette anchors (use these — don't introduce new hues):
+ *   slate-900  #0f172a   page bg (deepest)
+ *   slate-800  #1e293b   surfaces, code blocks
+ *   slate-700  #334155   borders
+ *   slate-600  #475569   border-hover
+ *   slate-500  #64748b   text-faint
+ *   slate-400  #94a3b8
+ *   slate-300  #cbd5e1   text-muted
+ *   slate-200  #e2e8f0   text-normal
+ *   #282c34              editor surface (legacy slatewave)
+ *   #21252b              sidebar / tabs
+ *
+ *   teal-300   #5eead4   primary accent
+ *   teal-200   #99f6e4   accent-hover
+ *   sky-300    #7dd3fc   info
+ *   sky-400    #38bdf8   external links
+ *   purple     #b388ff   decorators
+ *   rose-400   #fb7185   danger / errors
+ *   amber-400  #fbbf24   warning / attention
+ * ============================================================= */
+
+:root {
+  /* Override the site's CSS custom properties here. Per-selector
+   * rules live below. */
+}

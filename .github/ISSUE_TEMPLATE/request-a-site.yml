@@ -1,0 +1,40 @@
+name: Request a site
+description: Suggest a website for a Slatewave userstyle.
+title: "[Request] "
+labels: ["request"]
+body:
+  - type: input
+    id: site
+    attributes:
+      label: Site
+      description: URL of the site you want themed.
+      placeholder: https://example.com
+    validations:
+      required: true
+  - type: textarea
+    id: surfaces
+    attributes:
+      label: What surfaces matter most?
+      description: Which pages or components do you spend time on? (Helps prioritize what to theme first.)
+      placeholder: |
+        - the dashboard at /home
+        - the message composer
+        - settings pages
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag-and-drop a few screenshots of the unthemed site. Especially helpful if the site uses a custom design system.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirms
+    attributes:
+      label: Confirmations
+      options:
+        - label: I've checked existing issues for duplicates.
+          required: true
+        - label: The site doesn't already have a Slatewave style in this repo.
+          required: true

@@ -1,0 +1,11 @@
+{
+  "name": "Slatewave for GitHub",
+  "namespace": "getslatewave.com/github",
+  "version": "0.1.0",
+  "description": "Slate base, teal accents — Slatewave palette applied to GitHub.",
+  "author": "Kevin Langley Jr.",
+  "homepageURL": "https://getslatewave.com",
+  "supportURL": "https://github.com/kevinlangleyjr/slatewave-userstyles/issues",
+  "license": "WTFPL",
+  "domains": ["github.com", "gist.github.com"]
+}

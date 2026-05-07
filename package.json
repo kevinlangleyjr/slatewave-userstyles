@@ -1,0 +1,21 @@
+{
+  "name": "slatewave-userstyles",
+  "version": "0.1.0",
+  "description": "Slatewave userstyles for the websites you live in.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:check": "node scripts/build.mjs --check"
+  },
+  "license": "WTFPL",
+  "author": "Kevin Langley Jr.",
+  "homepage": "https://getslatewave.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinlangleyjr/slatewave-userstyles"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

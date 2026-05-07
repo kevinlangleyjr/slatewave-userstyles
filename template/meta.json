@@ -1,0 +1,11 @@
+{
+  "name": "Slatewave for <Site>",
+  "namespace": "getslatewave.com/<site>",
+  "version": "0.1.0",
+  "description": "Slatewave palette for <Site>.",
+  "author": "Kevin Langley Jr.",
+  "homepageURL": "https://getslatewave.com",
+  "supportURL": "https://github.com/kevinlangleyjr/slatewave-userstyles/issues",
+  "license": "WTFPL",
+  "domains": ["<site>.com"]
+}
