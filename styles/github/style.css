@@ -66,7 +66,7 @@ html,
   --bgColor-accent-muted: var(--slatewave-teal-faint) !important;
   --bgColor-accent-emphasis: var(--slatewave-teal-deep) !important;
   --bgColor-success-muted: var(--slatewave-teal-subtle) !important;
-  --bgColor-success-emphasis: var(--slatewave-teal-deep) !important;
+  --bgColor-success-emphasis: var(--slatewave-teal) !important;
   --bgColor-attention-muted: var(--slatewave-amber-faint) !important;
   --bgColor-attention-emphasis: var(--slatewave-amber-deep) !important;
   --bgColor-severe-muted: var(--slatewave-amber-faint) !important;
@@ -123,12 +123,12 @@ html,
   --button-default-borderColor-rest: var(--slatewave-border) !important;
   --button-default-borderColor-hover: var(--slatewave-border-hover) !important;
 
-  --button-primary-bgColor-rest: var(--slatewave-teal-deep) !important;
-  --button-primary-bgColor-hover: var(--slatewave-teal) !important;
+  --button-primary-bgColor-rest: var(--slatewave-teal) !important;
+  --button-primary-bgColor-hover: var(--slatewave-teal-hover) !important;
   --button-primary-bgColor-active: var(--slatewave-teal-hover) !important;
   --button-primary-fgColor-rest: var(--slatewave-text-on-emphasis) !important;
-  --button-primary-borderColor-rest: var(--slatewave-teal-deep) !important;
-  --button-primary-borderColor-hover: var(--slatewave-teal) !important;
+  --button-primary-borderColor-rest: var(--slatewave-teal) !important;
+  --button-primary-borderColor-hover: var(--slatewave-teal-hover) !important;
 
   --button-danger-bgColor-rest: var(--slatewave-bg-1) !important;
   --button-danger-bgColor-hover: var(--slatewave-rose-deep) !important;
@@ -197,7 +197,7 @@ html,
   --color-accent-subtle: var(--slatewave-teal-subtle) !important;
 
   --color-success-fg: var(--slatewave-teal) !important;
-  --color-success-emphasis: var(--slatewave-teal-deep) !important;
+  --color-success-emphasis: var(--slatewave-teal) !important;
   --color-success-muted: var(--slatewave-teal-faint) !important;
   --color-success-subtle: var(--slatewave-teal-subtle) !important;
 
@@ -247,13 +247,13 @@ html,
   --color-btn-counter-bg: var(--slatewave-bg-2) !important;
 
   --color-btn-primary-text: var(--slatewave-text-on-emphasis) !important;
-  --color-btn-primary-bg: var(--slatewave-teal-deep) !important;
-  --color-btn-primary-border: var(--slatewave-teal-deep) !important;
-  --color-btn-primary-hover-bg: var(--slatewave-teal) !important;
-  --color-btn-primary-hover-border: var(--slatewave-teal) !important;
+  --color-btn-primary-bg: var(--slatewave-teal) !important;
+  --color-btn-primary-border: var(--slatewave-teal) !important;
+  --color-btn-primary-hover-bg: var(--slatewave-teal-hover) !important;
+  --color-btn-primary-hover-border: var(--slatewave-teal-hover) !important;
   --color-btn-primary-selected-bg: var(--slatewave-teal-hover) !important;
   --color-btn-primary-disabled-text: rgba(15, 23, 42, 0.6) !important;
-  --color-btn-primary-disabled-bg: var(--slatewave-teal-deep) !important;
+  --color-btn-primary-disabled-bg: var(--slatewave-teal) !important;
 
   --color-btn-danger-text: var(--slatewave-rose) !important;
   --color-btn-danger-hover-text: var(--slatewave-text) !important;
@@ -391,4 +391,57 @@ a:hover {
  * gradient that washes out on slate. Drop it for a flat slate panel. */
 .pinned-item-list-item-content {
   background-image: none;
+}
+
+/* PR merge box "BlockedSection" circle octicons (e.g. "X workflows
+ * awaiting approval") paint their bg via inline style pointing at
+ * --bgColor-attention-emphasis (amber). For Slatewave the merge-block
+ * family reads as a single rose signal — same as "Review required" and
+ * "Merging is blocked" — so force the rose here.
+ *
+ * The class is a CSS-Modules-hashed name (BlockedSection-module__CircleOcticon__<hash>);
+ * matching by stable prefix survives hash churn on GitHub rebuilds. */
+[class*="BlockedSection-module__CircleOcticon"],
+[class*="prc-BlockedSection-CircleOcticon"] {
+  background-color: var(--slatewave-rose) !important;
+}
+
+/* Open issue/PR state label — the dark-teal `bgColor-open-emphasis` reads
+ * poorly with the default dark `fgColor-onEmphasis` text. Force the label
+ * text (and the leading octicon, which inherits via currentColor) to white
+ * for legibility. Closed and Merged states keep the standard onEmphasis
+ * text since their bgs are bright enough that dark text reads well.
+ *
+ * Covers three generations of GitHub's StateLabel markup:
+ *   - legacy `.State.State--open`
+ *   - older Primer React `[data-component="StateLabel"][data-state="open"]`
+ *   - new Primer React Components (`prc-StateLabel-*` with `data-status`) */
+.State--open,
+[class*="StateLabel--open"],
+[data-component="StateLabel"][data-state="open"],
+[data-status="pullOpened"],
+[data-status="issueOpened"] {
+  color: #fff !important;
+}
+
+/* Comment / submit-form primary buttons — the legacy `.btn-primary` class
+ * paints its own background (sometimes via a hardcoded gradient) instead of
+ * deferring to the --button-primary-* tokens. Direct-target it so the teal
+ * sticks regardless of whether GitHub's rule reaches the tokens. */
+.btn-primary {
+  background-color: var(--slatewave-teal) !important;
+  background-image: none !important;
+  border-color: var(--slatewave-teal) !important;
+  color: var(--slatewave-text-on-emphasis) !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--slatewave-teal-hover) !important;
+  border-color: var(--slatewave-teal-hover) !important;
+}
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  background-color: var(--slatewave-teal) !important;
+  border-color: var(--slatewave-teal) !important;
+  color: rgba(15, 23, 42, 0.55) !important;
 }
