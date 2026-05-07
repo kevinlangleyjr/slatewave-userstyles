@@ -406,21 +406,36 @@ a:hover {
   background-color: var(--slatewave-rose) !important;
 }
 
-/* Open issue/PR state label — the dark-teal `bgColor-open-emphasis` reads
- * poorly with the default dark `fgColor-onEmphasis` text. Force the label
- * text (and the leading octicon, which inherits via currentColor) to white
- * for legibility. Closed and Merged states keep the standard onEmphasis
- * text since their bgs are bright enough that dark text reads well.
+/* PR/issue state labels — Open (dark teal bg) and Merged (dark purple bg)
+ * both pair badly with the default dark `fgColor-onEmphasis` text. Force
+ * white on those labels (the leading octicon inherits via currentColor).
+ * Closed stays on standard onEmphasis text since its bright-rose bg reads
+ * fine with dark text.
  *
  * Covers three generations of GitHub's StateLabel markup:
- *   - legacy `.State.State--open`
+ *   - legacy `.State.State--open` / `.State--merged`
  *   - older Primer React `[data-component="StateLabel"][data-state="open"]`
  *   - new Primer React Components (`prc-StateLabel-*` with `data-status`) */
 .State--open,
+.State--merged,
 [class*="StateLabel--open"],
+[class*="StateLabel--merged"],
 [data-component="StateLabel"][data-state="open"],
+[data-component="StateLabel"][data-state="merged"],
 [data-status="pullOpened"],
-[data-status="issueOpened"] {
+[data-status="issueOpened"],
+[data-status="pullMerged"] {
+  color: #fff !important;
+}
+
+/* Timeline event badges (the small circle icons on the left rail of issue/PR
+ * conversations — "merged commit X", "opened this issue", etc.) paint via
+ * Primer's `.color-fg-on-emphasis` + `.color-bg-{state}-emphasis` utility
+ * combo. The dark slate fg on the dark purple/teal bgs reads poorly; flip
+ * the icon to white for done (merged) and open. Closed stays on standard
+ * onEmphasis text since the bright-rose bg works with dark icons. */
+.TimelineItem-badge.color-bg-done-emphasis,
+.TimelineItem-badge.color-bg-open-emphasis {
   color: #fff !important;
 }
 
