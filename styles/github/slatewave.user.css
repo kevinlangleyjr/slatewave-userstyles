@@ -159,6 +159,13 @@
     --overlay-borderColor: var(--slatewave-border) !important;
     --overlay-backdrop-bgColor: rgba(15, 23, 42, 0.6) !important;
   
+    /* Tooltips default to bgColor-emphasis / fgColor-onEmphasis. Our emphasis bg
+     * is the darkest slate AND our onEmphasis fg is also dark slate (so bright
+     * button surfaces — teal/rose — get readable dark text). On the dark tooltip
+     * surface that pairing renders text invisible. Set tooltip tokens directly. */
+    --tooltip-bgColor: var(--slatewave-bg-3) !important;
+    --tooltip-fgColor: var(--slatewave-text) !important;
+  
     --selectMenu-bgColor-active: var(--slatewave-teal-faint) !important;
     --controlKnob-bgColor-rest: var(--slatewave-text-muted) !important;
     --control-bgColor-rest: var(--slatewave-bg-1) !important;
@@ -366,6 +373,16 @@
     background: rgba(94, 234, 212, 0.25);
   }
   
+  /* Tooltips — belt-and-braces for surfaces that hardcode color/bg directly
+   * instead of going through the tooltip tokens. Without this, the contribution
+   * graph day tooltip and other `tool-tip` instances inherit dark text on a
+   * dark surface. */
+  tool-tip,
+  .tooltipped::after {
+    color: var(--slatewave-text) !important;
+    background-color: var(--slatewave-bg-3) !important;
+  }
+  
   /* Tighten up the global header divider to match the slate palette */
   .AppHeader,
   header.Header {
@@ -430,13 +447,18 @@
    *   - new Primer React Components (`prc-StateLabel-*` with `data-status`) */
   .State--open,
   .State--merged,
+  .State--draft,
   [class*="StateLabel--open"],
   [class*="StateLabel--merged"],
+  [class*="StateLabel--draft"],
   [data-component="StateLabel"][data-state="open"],
   [data-component="StateLabel"][data-state="merged"],
+  [data-component="StateLabel"][data-state="draft"],
   [data-status="pullOpened"],
   [data-status="issueOpened"],
-  [data-status="pullMerged"] {
+  [data-status="pullMerged"],
+  [data-status="pullDraft"],
+  [data-status="draft"] {
     color: #fff !important;
   }
   
